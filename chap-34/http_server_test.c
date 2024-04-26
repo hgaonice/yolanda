@@ -1,8 +1,9 @@
 #include "lib/http_request.h"
 #include "lib/http_server.h"
 #include "lib/http_response.h"
-#include <string.h>
 #define _GNU_SOURCE
+#include <string.h>
+
 
 char *data = "GET / HTTP/1.1\r\nHost: localhost:43211\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n";
 

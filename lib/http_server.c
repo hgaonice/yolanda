@@ -1,7 +1,8 @@
 #include <assert.h>
 #include "http_server.h"
-#include <string.h>
 #define _GNU_SOURCE
+#include <string.h>
+
 
 
 //连接建立之后的callback

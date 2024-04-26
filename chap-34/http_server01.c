@@ -2,8 +2,9 @@
 #include <lib/http_server.h>
 #include "lib/common.h"
 #include "lib/event_loop.h"
-#include <string.h>
 #define _GNU_SOURCE
+#include <string.h>
+
 
 //数据读到buffer之后的callback
 int onRequest(struct http_request *httpRequest, struct http_response *httpResponse) {
