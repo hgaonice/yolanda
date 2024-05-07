@@ -95,6 +95,11 @@ int http_onMessage(struct buffer *input, struct tcp_connection *tcpConnection) {
     struct http_request *httpRequest = (struct http_request *) tcpConnection->request;
     struct http_server *httpServer = (struct http_server *) tcpConnection->data;
 
+    yolanda_msgx("get buffer info ===> data\n%s", input->data);
+    yolanda_msgx("get buffer info ===> readIndex:%d", input->readIndex);
+    yolanda_msgx("get buffer info ===> writeIndex:%d", input->writeIndex);
+    yolanda_msgx("get buffer info ===> total_size:%d", input->total_size);
+
     if (parse_http_request(input, httpRequest) == 0) {
         char *error_response = "HTTP/1.1 400 Bad Request\r\n\r\n";
         tcp_connection_send_data(tcpConnection, error_response, sizeof(error_response));

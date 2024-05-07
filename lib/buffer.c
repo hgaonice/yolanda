@@ -110,5 +110,6 @@ char buffer_read_char(struct buffer *buffer) {
 
 char *buffer_find_CRLF(struct buffer *buffer) {
     char *crlf = memmem(buffer->data + buffer->readIndex, buffer_readable_size(buffer), CRLF, 2);
+    // yolanda_msgx("buffer_find_CRLF:%s",crlf);
     return crlf;
 }
