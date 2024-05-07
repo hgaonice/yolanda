@@ -3,6 +3,8 @@
 #define _GNU_SOURCE
 #include <string.h>
 
+void *memmem (const void *__haystack, size_t __haystacklen,const void *__needle, size_t __needlelen);
+
 
 
 //连接建立之后的callback

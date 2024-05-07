@@ -1,8 +1,5 @@
 #include "buffer.h"
 #include "common.h"
-#define _GNU_SOURCE
-#include <string.h>
-
 
 const char *CRLF = "\r\n";
 

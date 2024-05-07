@@ -1,6 +1,7 @@
 //
 // Created by shengym on 2019-07-07.
 //
+// #define _GNU_SOURCE
 
 #ifndef YOLANDA_COMMON_H
 #define YOLANDA_COMMON_H
@@ -41,6 +42,9 @@
 #ifdef EPOLL_ENABLE
 #include    <sys/epoll.h>
 #endif
+
+// Ubuntu 20.04.6  需要声明 memmem
+void *memmem (const void *__haystack, size_t __haystacklen,const void *__needle, size_t __needlelen);
 
 
 void err_dump(const char *, ...);
