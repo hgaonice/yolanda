@@ -58,9 +58,11 @@ int event_loop_do_channel_event(struct event_loop *eventLoop, int fd, struct cha
     event_loop_channel_buffer_nolock(eventLoop, fd, channel1, type);
     //release the lock
     pthread_mutex_unlock(&eventLoop->mutex);
+    //如果是主线程发起操作，则调用event_loop_wakeup唤醒子线程
     if (!isInSameThread(eventLoop)) {
         event_loop_wakeup(eventLoop);
     } else {
+        //如果是子线程自己，则直接可以操作
         event_loop_handle_pending_channel(eventLoop);
     }
 
