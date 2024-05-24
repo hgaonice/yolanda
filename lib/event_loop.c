@@ -256,7 +256,7 @@ int event_loop_run(struct event_loop *eventLoop) {
     while (!eventLoop->quit) {
         //block here to wait I/O event, and get active channels
         dispatcher->dispatch(eventLoop, &timeval);
-
+        yolanda_msgx("event dispatch end, %s", eventLoop->thread_name);
         //handle the pending channel
         event_loop_handle_pending_channel(eventLoop);
     }
