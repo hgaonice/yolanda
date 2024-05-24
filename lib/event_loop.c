@@ -58,6 +58,7 @@ int event_loop_do_channel_event(struct event_loop *eventLoop, int fd, struct cha
     event_loop_channel_buffer_nolock(eventLoop, fd, channel1, type);
     //release the lock
     pthread_mutex_unlock(&eventLoop->mutex);
+    yolanda_msgx("event_loop_do_channel_event isInSameThread == %d",  eventLoop->owner_thread_id == pthread_self());
     //如果是主线程发起操作，则调用event_loop_wakeup唤醒子线程
     if (!isInSameThread(eventLoop)) {
         event_loop_wakeup(eventLoop);
