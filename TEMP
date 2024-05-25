@@ -1,0 +1,21 @@
+[msg] set epoll as dispatcher, main thread
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: main thread 
+[msg] add channel fd == 5, main thread
+
+[msg] set epoll as dispatcher, Thread-1
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: Thread-1 
+[msg] add channel fd == 9, Thread-1
+[msg] event loop thread init and signal, Thread-1
+[msg] event loop run, Thread-1
+[msg] event loop thread started, Thread-1
+
+[msg] set epoll as dispatcher, Thread-2
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: Thread-2 
+[msg] add channel fd == 12, Thread-2
+[msg] event loop thread init and signal, Thread-2
+[msg] event loop run, Thread-2
+[msg] event loop thread started, Thread-2
+
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: main thread 
+[msg] add channel fd == 6, main thread
+[msg] event loop run, main thread
