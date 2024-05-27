@@ -138,10 +138,12 @@ int handle_connection_established(void *data) {
     int connected_fd = accept(listenfd, (struct sockaddr *) &client_addr, &client_len);
     make_nonblocking(connected_fd);
 
-    yolanda_msgx("new connection established, socket == %d", connected_fd);
+    yolanda_msgx("new connection established, socket == %d ,thread:%s", connected_fd,tcpServer->eventLoop->thread_name);
 
     // choose event loop from the thread pool
     struct event_loop *eventLoop = thread_pool_get_loop(tcpServer->threadPool);
+
+    yolanda_msgx("thread_pool_get_loop thread:%s", eventLoop->thread_name);
 
     // create a new tcp connection
     struct tcp_connection *tcpConnection = tcp_connection_new(connected_fd, eventLoop,

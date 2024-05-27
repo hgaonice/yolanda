@@ -19,3 +19,57 @@
 [msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: main thread 
 [msg] add channel fd == 6, main thread
 [msg] event loop run, main thread
+
+-- ===================================================20240527===================================================
+[msg] set epoll as dispatcher, main thread
+
+[msg] set epoll as dispatcher, Thread-1
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: Thread-1 
+[msg] add channel fd == 7, Thread-1
+[msg] event loop thread init and signal, Thread-1
+[msg] event loop run, Thread-1
+[msg] event loop thread started, Thread-1
+
+[msg] set epoll as dispatcher, Thread-2
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: Thread-2 
+[msg] add channel fd == 10, Thread-2
+[msg] event loop thread init and signal, Thread-2
+[msg] event loop run, Thread-2
+[msg] event loop thread started, Thread-2
+
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: main thread 
+[msg] add channel fd == 4, main thread
+[msg] event loop run, main thread
+
+[msg] epoll_wait wakeup, main thread
+[msg] get message channel fd==4 for read, main thread
+[msg] activate channel fd == 4, revents=2, main thread
+[msg] new connection established, socket == 11
+[msg] connection completed
+[msg] event_loop_do_channel_event , isInSameThread:  0 ,thread: Thread-1 
+[msg] event dispatch end, main thread
+[msg] epoll_wait wakeup, Thread-1
+[msg] get message channel fd==7 for read, Thread-1
+[msg] activate channel fd == 7, revents=2, Thread-1
+[msg] wakeup, Thread-1
+[msg] event dispatch end, Thread-1
+[msg] add channel fd == 11, Thread-1
+[msg] epoll_wait wakeup, Thread-1
+[msg] get message channel fd==11 for read, Thread-1
+[msg] activate channel fd == 11, revents=2, Thread-1
+[msg] get message from tcp connection connection-11
+[msg] get buffer info ===> data
+GET / HTTP/1.1
+Host: 127.0.0.1:43211
+User-Agent: curl/7.68.0
+Accept: */*
+[msg] get buffer info ===> readIndex:0
+[msg] get buffer info ===> writeIndex:79
+[msg] get buffer info ===> total_size:65536
+[msg] event dispatch end, Thread-1
+[msg] epoll_wait wakeup, Thread-1
+[msg] get message channel fd==11 for read, Thread-1
+[msg] activate channel fd == 11, revents=2, Thread-1
+[msg] event_loop_do_channel_event , isInSameThread:  1 ,thread: Thread-1 
+[msg] connection closed
+[msg] event dispatch end, Thread-1

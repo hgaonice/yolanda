@@ -223,16 +223,18 @@ struct event_loop *event_loop_init_with_name(char *thread_name) {
 
     //add the socketfd to event
     eventLoop->owner_thread_id = pthread_self();
-    if (socketpair(AF_UNIX, SOCK_STREAM, 0, eventLoop->socketPair) < 0) {
-        LOG_ERR("socketpair set fialed");
-    }
     eventLoop->is_handle_pending = 0;
     eventLoop->pending_head = NULL;
     eventLoop->pending_tail = NULL;
 
-    struct channel *channel = channel_new(eventLoop->socketPair[1], EVENT_READ, handleWakeup, NULL, eventLoop);
-    event_loop_add_channel_event(eventLoop, eventLoop->socketPair[1], channel);
-
+    //handleWakeup主要是sub线程被唤醒使用 main线程无需添加read事件
+    if (thread_name != NULL) {
+         if (socketpair(AF_UNIX, SOCK_STREAM, 0, eventLoop->socketPair) < 0) {
+            LOG_ERR("socketpair set fialed");
+        }
+        struct channel *channel = channel_new(eventLoop->socketPair[1], EVENT_READ, handleWakeup, NULL, eventLoop);
+        event_loop_add_channel_event(eventLoop, eventLoop->socketPair[1], channel);
+    }
     return eventLoop;
 }
 
