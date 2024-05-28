@@ -74,15 +74,16 @@ tcp_connection_new(int connected_fd, struct event_loop *eventLoop,
     sprintf(buf, "connection-%d\0", connected_fd);
     tcpConnection->name = buf;
 
-    // add event read for the new connection
+    // add event read for the new connection 为新的连接对象创建可读事件
     struct channel *channel1 = channel_new(connected_fd, EVENT_READ, handle_read, handle_write, tcpConnection);
     tcpConnection->channel = channel1;
 
-    //connectionCompletedCallBack callback
+    //connectionCompletedCallBack callback 完成对connectionCompleted的函数回调
     if (tcpConnection->connectionCompletedCallBack != NULL) {
         tcpConnection->connectionCompletedCallBack(tcpConnection);
     }
-
+    
+    //把该套集字对应的channel对象注册到event_loop事件分发器上
     event_loop_add_channel_event(tcpConnection->eventLoop, connected_fd, tcpConnection->channel);
     return tcpConnection;
 }

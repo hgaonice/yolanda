@@ -140,18 +140,18 @@ int handle_connection_established(void *data) {
 
     yolanda_msgx("new connection established, socket == %d ,thread:%s", connected_fd,tcpServer->eventLoop->thread_name);
 
-    // choose event loop from the thread pool
+    // choose event loop from the thread pool 从线程池里选择一个eventloop来服务这个新的连接套接字
     struct event_loop *eventLoop = thread_pool_get_loop(tcpServer->threadPool);
 
     yolanda_msgx("thread_pool_get_loop thread:%s", eventLoop->thread_name);
 
-    // create a new tcp connection
+    // create a new tcp connection 为这个新建立套接字创建一个tcp_connection对象，并把应用程序的callback函数设置给这个tcp_connection对象
     struct tcp_connection *tcpConnection = tcp_connection_new(connected_fd, eventLoop,
                                                               tcpServer->connectionCompletedCallBack,
                                                               tcpServer->connectionClosedCallBack,
                                                               tcpServer->messageCallBack,
                                                               tcpServer->writeCompletedCallBack);
-    //for callback use
+    //for callback use callback内部使用
     if (tcpServer->data != NULL) {
         tcpConnection->data = tcpServer->data;
     }

@@ -52,9 +52,10 @@ void event_loop_channel_buffer_nolock(struct event_loop *eventLoop, int fd, stru
 }
 
 int event_loop_do_channel_event(struct event_loop *eventLoop, int fd, struct channel *channel1, int type) {
-    //get the lock
+    //get the lock 
     pthread_mutex_lock(&eventLoop->mutex);
     assert(eventLoop->is_handle_pending == 0);
+    // 往该线程的channel列表里增加新的channel
     event_loop_channel_buffer_nolock(eventLoop, fd, channel1, type);
     //release the lock
     pthread_mutex_unlock(&eventLoop->mutex);
@@ -260,7 +261,7 @@ int event_loop_run(struct event_loop *eventLoop) {
         //block here to wait I/O event, and get active channels
         dispatcher->dispatch(eventLoop, &timeval);
         yolanda_msgx("event dispatch end, %s", eventLoop->thread_name);
-        //handle the pending channel
+        //handle the pending channel 这里处理pending channel，如果是子线程被唤醒，这个部分也会立即执行到
         event_loop_handle_pending_channel(eventLoop);
     }
 
